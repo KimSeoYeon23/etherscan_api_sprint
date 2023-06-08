@@ -17,7 +17,7 @@ input:focus {
 }
 
 .backBtn {
-  width: 23%;
+  width: 590px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -69,6 +69,12 @@ input:focus {
   border-radius: 15px;
   background-color: rgba(255, 0, 0, 0.5);
   cursor: pointer;
+}
+
+.balModal {
+  padding: 20px;
+  height: 150px;
+  justify-content: initial;
 }
 
 .txModal {
