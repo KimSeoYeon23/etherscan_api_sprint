@@ -63,8 +63,10 @@ app.post('/getContract', async (req, res) => {
     let contractABI = response.data.result;
     // contractABI가 빈 문자열이 아니라면 contractABI를 보낸다.
     console.log(contractABI)
+    let contractABIObj = JSON.parse(contractABI);
+    console.log(contractABIObj)
     if(contractABI !== '') {
-      res.status(200).send(contractABI);
+      res.status(200).send(contractABIObj);
     } else {
       // contractABI가 빈 문자열이라면 에러 메시지를 보낸다.
       res.status(400).send('Error: Contract ABI is empty');

@@ -53,9 +53,9 @@
   cursor: pointer;
   text-decoration: none;
   font-weight: bold;
-  background-color: #19A7CE;
+  background-color: #146C94;
 }
 
 .getTxBtn:hover {
-  background-color: #0b7a99;
+  background-color: #1590c9;
 }

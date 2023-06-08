@@ -76,3 +76,9 @@ input:focus {
   height: 500px;
   justify-content: initial;
 }
+
+.abiModal {
+  padding: 20px;
+  height: 500px;
+  justify-content: initial;
+}
