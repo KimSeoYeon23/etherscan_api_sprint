@@ -1,0 +1,61 @@
+.tx {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.txInputWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.txInput {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.txInput > p {
+  text-align: left;
+}
+
+.txInput > input {
+  width: 90%;
+  height: 30px;
+}
+
+.tx > p {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.backBtn:visited {
+  color: #000;
+}
+
+.getTxBtn {
+  width: 150px;
+  height: 100px;
+  border: none;
+  border-radius: 10%;
+  color: #fff;
+  margin: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #19A7CE;
+}
+
+.getTxBtn:hover {
+  background-color: #0b7a99;
+}

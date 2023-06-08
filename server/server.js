@@ -15,16 +15,22 @@ const endpoint = `https://api-goerli.etherscan.io/api?module=account`;
 
 // 현재 잔액 조회
 app.post('/getBalance', async (req, res) => {
-  const address = req.body.address;
-  const apiKey = req.body.apiKey;
-  console.log(address, apiKey);
+  const { address, apiKey } = req.body;
+
+  if (!address || !apiKey) {
+    return res.status(400).send({error: 'Address and API key are required'});
+  }
 
   try {
     const response = await axios.get(`${endpoint}&action=balance&address=${address}&tag=latest&apikey=${apiKey}`);
-    console.log(response.data.result);
-    const balance = await Web3.utils.fromWei(response.data.result, 'ether');
-    console.log(balance);
-    res.status(200).send(balance);
+
+    if (response.data.status === '0') {
+      return res.status(400).send({error: 'Bad request from Ethereum API'});
+    } else {
+      const balance = Web3.utils.fromWei(response.data.result, 'ether');
+      console.log(balance);
+      return res.status(200).send(balance);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error');
@@ -44,8 +50,8 @@ app.post('/getTransaction', async (req, res) => {
     console.log(response.data.result);
     res.status(200).send(response.data.result);
   } catch (error) {
-    console.log(error);
-    res.status(500).send('Server Error');
+    console.log(error.response.data);
+    return res.status(500).send({error: 'Server Error', details: error.response.data}); 
   }
 });
 

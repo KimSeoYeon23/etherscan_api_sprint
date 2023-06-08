@@ -1,34 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 
-function Balance({ address, setAddress, apiKey, setApiKey }) {
-  const [balance, setBalance] = useState('');
-  
 
-  const getBalance = async () => {
-    const url = `http://localhost:8080/getBalance`;
-    const response = await axios.post(url, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/x-www-form-urlencoded",
-        "Authorization": `Bearer ${apiKey}`
-      },
-        address: address,
-        apiKey: apiKey
-    });
-    setBalance(response.data);
-    setAddress('');
-    setApiKey('');
-  }
-
-  useEffect(() => {
-    getBalance();
-  }, []);
+function Balance({ balance, isModal, setIsModal }) {
 
   return (
-    <div>
-      <p>Balance: {balance} ETH</p>
-    </div>
+    <Modal isOpen={isModal} className='modal'>
+      <p className='result'><strong>Balance</strong>: <span>{balance} ETH</span></p>
+      <div>
+        <button className='closeBtn' onClick={() => setIsModal(false)}>닫기</button>
+      </div>
+    </Modal>
   );
 }
 

@@ -1,73 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React  from 'react';
+import Modal from 'react-modal';
 import '../css/Transaction.css'
 
-function Transactions({ address, setAddress, startBlock, setStartBlock, endBlock, setEndBlock, apiKey, setApiKey }) {
-  const [transaction, setTransaction] = useState([]);
-  console.log(transaction);
-  
-
-  const getTransaction = async () => {
-    const url = `http://localhost:8080/getTransaction`;
-    const response = await axios.post(url, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/x-www-form-urlencoded",
-        "Authorization": `Bearer ${apiKey}`
-      },
-      address: address,
-      startBlock: startBlock,
-      endBlock: endBlock,
-      apiKey: apiKey
-    });
-    setTransaction(response.data);
-    setAddress('');
-    setStartBlock('');
-    setEndBlock('');
-    setApiKey('');
-  }
-
-  useEffect(() => {
-    getTransaction();
-  }, []);
+function Transactions({ transaction, isModal, setIsModal }) {
 
   return (
-    <div className='transaction'>
-      {
-        transaction.map((tx, index) => {
-          return (
-            <div className='txWrapper' key={index}>
-              <p>BlockNumber: {tx.blockNumber}</p>
-              <p>TimeStamp: {tx.timeStamp}</p>
-              <p>Hash: {tx.hash}</p>
-              <p>Nonce: {tx.nonce}</p>
-              <p>TransactionIndex: {tx.transactionIndex}</p>
-              <p>From: {tx.from}</p>
-              <p>To: {tx.to}</p>
-              <p>Value: {tx.value}</p>
-              <p>Gas: {tx.gas}</p>
-              <p>GasPrice: {tx.gasPrice}</p>
-              <p>isError: {tx.isError}</p>
-              <p>TxReceipt_Status: {tx.txreceipt_status}</p>
-              <p>
-                Input: {
-                  tx.input < 50
-                  ? tx.input
-                  : tx.input.slice(0, 35) + '...'
-                }
-              </p>
-              <p>ContractAddress: {tx.contractAddress}</p>
-              <p>CumulativeGasUsed: {tx.cumulativeGasUsed}</p>
-              <p>GasUsed: {tx.gasUsed}</p>
-              <p>Confirmations: {tx.confirmations}</p>
-              <p>MethodId: {tx.methodId}</p>
-              <p>FunctionName: {tx.functionName.length == 0 ? '' : tx.functionName}</p>
-            </div>
-          )
-        })
-      }
-
-    </div>
+    <Modal className='modal txModal' isOpen={isModal}>
+      <div className='txResult'>
+        {
+          transaction.map((item, index) => {
+            return (
+              <div className='txWrapper' key={index}>
+                <p><strong>BlockNumber</strong>: {item.blockNumber}</p>
+                <p><strong>TimeStamp</strong>: {item.timeStamp}</p>
+                <p><strong>Hash</strong>: {item.hash}</p>
+                <p><strong>Nonce</strong>: {item.nonce}</p>
+                <p><strong>TransactionIndex</strong>: {item.transactionIndex}</p>
+                <p><strong>From</strong>: {item.from}</p>
+                <p><strong>To</strong>: {item.to}</p>
+                <p><strong>Value</strong>: {item.value}</p>
+                <p><strong>Gas</strong>: {item.gas}</p>
+                <p><strong>GasPrice</strong>: {item.gasPrice}</p>
+                <p><strong>isError</strong>: {item.isError}</p>
+                <p><strong>TxReceipt_Status</strong>: {item.txreceipt_status}</p>
+                <p>
+                  <strong>Input</strong>: {
+                    item.input < 50
+                    ? item.input
+                    : item.input.slice(0, 35) + '...'
+                  }
+                </p>
+                <p><strong>ContractAddress</strong>: {item.contractAddress}</p>
+                <p><strong>CumulativeGasUsed</strong>: {item.cumulativeGasUsed}</p>
+                <p><strong>GasUsed</strong>: {item.gasUsed}</p>
+                <p><strong>Confirmations</strong>: {item.confirmations}</p>
+                <p><strong>MethodId</strong>: {item.methodId}</p>
+                <p><strong>FunctionName</strong>: {item.functionName.length == 0 ? '' : item.functionName}</p>
+              </div>
+            )
+          })
+        }
+      </div>
+      <div className='btnWrap'>
+        <button className='closeBtn' onClick={() => setIsModal(false)}>닫기</button>
+      </div>
+    </Modal>
   );
 }
 

@@ -1,0 +1,17 @@
+.caInput {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.caInput > p {
+  text-align: center;
+}
+
+.caInput > input {
+  display: flex;
+  width: 200px;
+  height: 30px;
+  margin: 10px;
+}
